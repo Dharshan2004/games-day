@@ -2,6 +2,7 @@ import pusher #server
 import pyrebase #firebase
 import time #control timing for google sheets
 from gsheets import Sheets #google sheets
+import os
 #Pusher clients
 pusher_clients = [
 #anirudhasaraf123t
@@ -97,9 +98,18 @@ database = firebase.database() #database object
 sheets = Sheets.from_files('credentials.json') #access credentials file
 url = 'https://docs.google.com/spreadsheets/d/1v_qSadYXZzS0TFuQ-vbmQKR95kKzFxiAvt-DQLwXeX8' #google sheets url
 
+def error():
+	print("Error")
+	database.child("Error").set(1)
+
+
 def get_client():
 	#retrieves current pusher id
 	i = database.child('Id').get().val()
+	f = database.child('Terminate').get().val()
+	if f == 1:
+		database.child('Terminate').set(0)
+		os._exit(0)
 	pusher_client = pusher_clients[i]
 	return pusher_client
 
@@ -141,8 +151,12 @@ def main(pusher_client):
 	#pusher_client.trigger('games_day', 'gamma', scores['Gamma'])
 	#pusher_client.trigger('games_day', 'delta', scores['Delta'])		
 while True:
-	time.sleep(0.5) #prevent overusage of google sheets api
-	main(get_client()) #run main function with server id from firebase
+	try:
+		time.sleep(0.5) #prevent overusage of google sheets api
+		main(get_client()) #run main function with server id from firebase
+	except:
+		error()
+
 
 
 
