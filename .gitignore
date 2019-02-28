@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 requirements.txt
+README.md
 # Distribution / packaging
 .Python
 build/
