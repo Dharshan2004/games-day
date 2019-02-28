@@ -1,9 +1,8 @@
-import pusher #server
-import pyrebase #firebase
-import time #control timing for google sheets
-from gsheets import Sheets #google sheets
+import pusher
+import pyrebase #
+import time 
+from gsheets import Sheets 
 import os
-#Pusher clients
 pusher_clients = [
 #anirudhasaraf123t
 pusher.Pusher(
@@ -85,51 +84,50 @@ pusher.Pusher(
   cluster='ap1',
   ssl=True
 )]
-#firebase configuration
+
 config = {
-    "apiKey": "AIzaSyAFQWHKQcfdZ0GmxwFzohjPjRm6vwcbREM",
-    "authDomain": "mael-c2ed5.firebaseapp.com",
-    "databaseURL": "https://mael-c2ed5.firebaseio.com",
-    "storageBucket": "mael-c2ed5.appspot.com"
+	"apiKey": "AIzaSyAFQWHKQcfdZ0GmxwFzohjPjRm6vwcbREM",
+	"authDomain": "mael-c2ed5.firebaseapp.com",
+	"databaseURL": "https://mael-c2ed5.firebaseio.com",
+	"storageBucket": "mael-c2ed5.appspot.com"
 }
 
-firebase = pyrebase.initialize_app(config) #firebase object
-database = firebase.database() #database object
-sheets = Sheets.from_files('credentials.json') #access credentials file
-url = 'https://docs.google.com/spreadsheets/d/1v_qSadYXZzS0TFuQ-vbmQKR95kKzFxiAvt-DQLwXeX8' #google sheets url
+firebase = pyrebase.initialize_app(config)
+database = firebase.database()
+sheets = Sheets.from_files('credentials.json')
+url = 'https://docs.google.com/spreadsheets/d/1v_qSadYXZzS0TFuQ-vbmQKR95kKzFxiAvt-DQLwXeX8'
 
 def error():
-	print("Error")
-	database.child("Error").set(1)
+	print("ERROR")
+	try:
+		database.child("Error").set(1)
+	except:
+		print ("DATABASE ERROR (CHECK INTERNET)")
 
 
 def get_client():
-	#retrieves current pusher id
-	i = database.child('Id').get().val()
-	f = database.child('Terminate').get().val()
-	if f == 1:
+	Id = database.child('Id').get().val()
+	Terminate = database.child('Terminate').get().val()
+	if Terminate == 1:
 		database.child('Terminate').set(0)
 		os._exit(0)
-	pusher_client = pusher_clients[i]
-	return pusher_client
+	pusher_client = pusher_clients[Id]
+	return [pusher_client, Id]
 
 
 def main(pusher_client):
-	s = sheets.get(url) #retrieve google sheet from url
-	scores = {'Alpha': 0, 'Beta': 0, 'Gamma': 0, 'Delta': 0} #dictionary of total scores
+	sheet = sheets.get(url)
+	scores = {'Alpha': 0, 'Beta': 0, 'Gamma': 0, 'Delta': 0} 
 	for class_index in range(0, 22): #!! REMEMBER: Change range when JC Classes are ready in the google sheets
-		student_index = 3 #starts from 3
+		student_index = 3 
 		while True:
-			ls = s.sheets[class_index][str(student_index)] #Individual student
-			#print('ls',ls)
+			student_list = sheet.sheets[class_index][str(student_index)]
 			try:
-				#make sure that line is not empty
-				x = ls[0]
-				if x == '':
+				if student_list[0] == '':
 					break
 			except:
 				break
-			house = ls[3] #4th element in individual student list is house
+			house = student_list[3]
 			if house == 'A':
 				house = 'Alpha'
 			elif house == 'B':
@@ -138,24 +136,26 @@ def main(pusher_client):
 				house == 'Gamma'
 			elif house == 'D':
 				house = 'Delta'
-			scores[house] = scores[house] + ls[25]  #total up the scores using the student's grand total
+			scores[house] = scores[house] + student_list[25]
 			student_index += 1
-
+	os.system('cls')
 	print("Alpha:", scores['Alpha'])
 	print("Beta:", scores['Beta'])
 	print("Gamma:", scores['Gamma'])
 	print("Delta:", scores['Delta'])
-	pusher_client.trigger('games_day', 'main', scores) #send the scores to the pusher server in JSON format of {"Alpha": 0, "Beta": 0, "Gamma": 0, "Delta": 0}
-	#pusher_client.trigger('games_day', 'alpha', scores['Alpha'])
-	#pusher_client.trigger('games_day', 'beta', scores['Beta'])
-	#pusher_client.trigger('games_day', 'gamma', scores['Gamma'])
-	#pusher_client.trigger('games_day', 'delta', scores['Delta'])		
-while True:
+	print("Server:", pusher_client[1] + 1)
+	pusher_client[0].trigger('games_day', 'main', scores)
+
+def run():
 	try:
-		time.sleep(0.5) #prevent overusage of google sheets api
-		main(get_client()) #run main function with server id from firebase
+		time.sleep(0.2) 
+		main(get_client())
 	except:
 		error()
+
+
+while True:
+	run()
 
 
 
