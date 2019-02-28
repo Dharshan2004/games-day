@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
-credential.json
+credentials.json
 README.md
 # Distribution / packaging
 .Python
