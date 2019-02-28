@@ -1,132 +1,132 @@
 <!DOCTYPE html>
 <head>
-    <title>Games Day</title>
+	<title>Games Day</title>
 </head>
 <body>
-    <p id = "alpha">alpha</p>
-    <p id = "beta">beta</p>
-    <p id = "gamma">gamma</p>
-    <p id = "delta">delta</p>
-    <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
-    <script>
-        //Pusher #1 --> Anirudhasaraf123t
-        var pusher1 = new Pusher("c524437e1b5b7c5b2f78", {cluster: 'ap1', forceTLS: true});
-        var channel1 = pusher1.subscribe('games_day');
-        channel1.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+	<p id = "alpha">alpha</p>
+	<p id = "beta">beta</p>
+	<p id = "gamma">gamma</p>
+	<p id = "delta">delta</p>
+	<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+	<script>
+		//Pusher #1 --> Anirudhasaraf123t
+		var pusher1 = new Pusher("c524437e1b5b7c5b2f78", {cluster: 'ap1', forceTLS: true});
+		var channel1 = pusher1.subscribe('games_day');
+		channel1.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #2 --> TJCGamesDay
-        var pusher2 = new Pusher("65686ca69e230fdeed5b", {cluster: 'ap1', forceTLS: true});
-        var channel2 = pusher2.subscribe('games_day');
-        channel2.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #2 --> TJCGamesDay
+		var pusher2 = new Pusher("65686ca69e230fdeed5b", {cluster: 'ap1', forceTLS: true});
+		var channel2 = pusher2.subscribe('games_day');
+		channel2.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #3 --> TJCGamesDay2
-        var pusher3 = new Pusher("ecc6c2bdbb1c7e33ded9", {cluster: 'ap1', forceTLS: true});
-        var channel3 = pusher3.subscribe('games_day');
-        channel3.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #3 --> TJCGamesDay2
+		var pusher3 = new Pusher("ecc6c2bdbb1c7e33ded9", {cluster: 'ap1', forceTLS: true});
+		var channel3 = pusher3.subscribe('games_day');
+		channel3.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #4 --> TJCGamesDay3
-        var pusher4 = new Pusher("a9118261807d47f13f0d", {cluster: 'ap1', forceTLS: true});
-        var channel4 = pusher4.subscribe('games_day');
-        channel4.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #4 --> TJCGamesDay3
+		var pusher4 = new Pusher("a9118261807d47f13f0d", {cluster: 'ap1', forceTLS: true});
+		var channel4 = pusher4.subscribe('games_day');
+		channel4.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #5 --> TJCGamesDay4
-        var pusher5 = new Pusher("8cc2eab2a8c546690f08", {cluster: 'ap1', forceTLS: true});
-        var channel5 = pusher5.subscribe('games_day');
-        channel5.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #5 --> TJCGamesDay4
+		var pusher5 = new Pusher("8cc2eab2a8c546690f08", {cluster: 'ap1', forceTLS: true});
+		var channel5 = pusher5.subscribe('games_day');
+		channel5.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #6 --> TJCGamesDay5 
-        var pusher6 = new Pusher("110c3ad5eb59136927ac", {cluster: 'ap1', forceTLS: true});
-        var channel6 = pusher6.subscribe('games_day');
-        channel6.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #6 --> TJCGamesDay5 
+		var pusher6 = new Pusher("110c3ad5eb59136927ac", {cluster: 'ap1', forceTLS: true});
+		var channel6 = pusher6.subscribe('games_day');
+		channel6.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #7 --> TJCGamesDay6
-        var pusher7 = new Pusher("a3edf1a5f488e9a9d6e2", {cluster: 'ap1', forceTLS: true});
-        var channel7 = pusher7.subscribe('games_day');
-        channel7.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #7 --> TJCGamesDay6
+		var pusher7 = new Pusher("a3edf1a5f488e9a9d6e2", {cluster: 'ap1', forceTLS: true});
+		var channel7 = pusher7.subscribe('games_day');
+		channel7.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #8 --> TJCGamesDay7
-        var pusher8 = new Pusher("caa5e35d8be834b55364", {cluster: 'ap1', forceTLS: true});
-        var channel8 = pusher8.subscribe('games_day');
-        channel8.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #8 --> TJCGamesDay7
+		var pusher8 = new Pusher("caa5e35d8be834b55364", {cluster: 'ap1', forceTLS: true});
+		var channel8 = pusher8.subscribe('games_day');
+		channel8.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #9 --> TJCGamesDay8
-        var pusher9 = new Pusher("a287341e860a33a09c53", {cluster: 'ap1', forceTLS: true});
-        var channel9 = pusher9.subscribe('games_day');
-        channel9.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });
+		//Pusher #9 --> TJCGamesDay8
+		var pusher9 = new Pusher("a287341e860a33a09c53", {cluster: 'ap1', forceTLS: true});
+		var channel9 = pusher9.subscribe('games_day');
+		channel9.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});
 
-        //Pusher #10 --> TJCGamesDay9
-        var pusher10 = new Pusher("035f240c26134eae472e", {cluster: 'ap1', forceTLS: true});
-        var channel10 = pusher10.subscribe('games_day');
-        channel10.bind('main', function(data) 
-        {
-            var json = data;
-            document.getElementById("alpha").innerHTML = data.Alpha;
-            document.getElementById("beta").innerHTML = data.Beta;
-            document.getElementById("gamma").innerHTML = data.Gamma;
-            document.getElementById("delta").innerHTML = data.Delta;
-        });        
-    </script>
+		//Pusher #10 --> TJCGamesDay9
+		var pusher10 = new Pusher("035f240c26134eae472e", {cluster: 'ap1', forceTLS: true});
+		var channel10 = pusher10.subscribe('games_day');
+		channel10.bind('main', function(data) 
+		{
+			var json = data;
+			document.getElementById("alpha").innerHTML = data.Alpha;
+			document.getElementById("beta").innerHTML = data.Beta;
+			document.getElementById("gamma").innerHTML = data.Gamma;
+			document.getElementById("delta").innerHTML = data.Delta;
+		});        
+	</script>
 </body>
