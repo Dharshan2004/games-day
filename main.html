@@ -24,7 +24,7 @@
         //Pusher #2 --> TJCGamesDay
         var pusher2 = new Pusher("65686ca69e230fdeed5b", {cluster: 'ap1', forceTLS: true});
         var channel2 = pusher2.subscribe('games_day');
-        channel12.bind('main', function(data) 
+        channel2.bind('main', function(data) 
         {
             var json = data;
             document.getElementById("alpha").innerHTML = data.Alpha;
