@@ -144,6 +144,7 @@ def main(pusher_client):
 	print("Gamma:", scores['Gamma'])
 	print("Delta:", scores['Delta'])
 	print("Server:", pusher_client[1] + 1)
+	scores['Greatest'] = max(scores.values())
 	pusher_client[0].trigger('games_day', 'main', scores)
 
 def run():
