@@ -1,24 +1,267 @@
 <!DOCTYPE html>
 <head>
 	<title>Games Day</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		#progress-alpha
+		{
+			width: 800px;
+			padding: 1px;
+			background: #FFFFFF;
+			border-radius: 6px;
+		}
+		#progress-bar-alpha
+		{
+			background-color: #0080ff;
+			height: 16px;
+			border-radius: 4px;
+			transition: width 1s;
+		}
+		#progress-beta
+		{
+			width: 800px;
+			padding: 1px;
+			background: #FFFFFF;
+			border-radius: 6px;
+		}
+		#progress-bar-beta
+		{
+			background-color: #b22222;
+			height: 16px;
+			border-radius: 4px;
+			transition: width 1s;
+		}
+		#progress-gamma
+		{
+			width: 800px;
+			padding: 1px;
+			background: #FFFFFF;
+			border-radius: 6px;
+		}
+		#progress-bar-gamma
+		{
+			background-color: #ffd300;
+			height: 16px;
+			border-radius: 4px;
+			transition: width 1s;
+		}
+		#progress-delta
+		{
+			width: 800px;
+			padding: 1px;
+			background: #FFFFFF;
+			border-radius: 6px;
+		}
+		#progress-bar-delta
+		{
+			background-color: #3f704d;
+			height: 16px;
+			border-radius: 4px;
+			transition: width 1s;
+		}
+		#align-alpha > div
+		{
+			float: left;
+			margin: 5px;
+		}
+		#align-beta > div
+		{
+			float: left;
+			margin: 5px;
+		}
+		#align-gamma > div
+		{
+			float: left;
+			margin: 5px;
+		}
+		#align-delta > div
+		{
+			float: left;
+			margin: 5px;
+		}
+		#loader 
+		{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			z-index: 1;
+			width: 150px;
+			height: 150px;
+			margin: -75px 0 0 -75px;
+			border: 16px solid #f3f3f3;
+			border-radius: 50%; 
+			border-top: 16px solid #3498db;
+			width: 120px;
+			height: 120px;
+			-webkit-animation: spin 2s linear infinite;
+			animation: spin 2s linear infinite;
+		}
+
+		@-webkit-keyframes spin 
+		{
+			0% { -webkit-transform: rotate(0deg); }
+			100% { -webkit-transform: rotate(360deg); }
+		}
+
+		@keyframes spin 
+		{
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+
+		/* Add animation to "page content" */
+		.animate-bottom 
+		{
+			position: relative;
+			-webkit-animation-name: animatebottom;
+			-webkit-animation-duration: 1s;
+			animation-name: animatebottom;
+			animation-duration: 1s
+		}
+
+		@-webkit-keyframes animatebottom 
+		{
+			from { bottom:-100px; opacity:0 } 
+			to { bottom:0px; opacity:1 }
+		}
+
+		@keyframes animatebottom 
+		{ 
+			from{ bottom:-100px; opacity:0 } 
+			to{ bottom:0; opacity:1 }
+		}
+
+		#myDiv 
+		{
+			display: none;
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
-	<p id = "alpha">alpha</p>
-	<p id = "beta">beta</p>
-	<p id = "gamma">gamma</p>
-	<p id = "delta">delta</p>
+	<div id="loader"></div>
+	<div style="display:none;" id="myDiv" class="animatebottom">
+		<div id="align-alpha">
+			<div id="progress-alpha">
+				<div id="progress-bar-alpha"></div>
+			</div>
+			<div id="progress-text-alpha"></div>
+		</div>
+		</br>
+		</br>
+		</br>
+		<div id="align-beta">
+			<div id="progress-beta">
+				<div id="progress-bar-beta"></div>
+				
+			</div>
+			<div id="progress-text-beta"></div>	
+		</div>
+		</br>
+		</br>
+		</br>
+		<div id="align-gamma">
+			<div id="progress-gamma">
+				<div id="progress-bar-gamma"></div>
+			</div>
+			<div id="progress-text-gamma"></div>
+		</div>
+		</br>
+		</br>
+		</br>	
+		<div id="align-delta">
+			<div id="progress-delta">
+				<div id="progress-bar-delta"></div>
+			</div>
+			<div id="progress-text-delta"></div>
+		</div>
+	</div>
+
+
 	<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
 	<script>
+		document.getElementById("progress-bar-alpha").style.width = "0%";
+		document.getElementById("progress-bar-beta").style.width = "0%";
+		document.getElementById("progress-bar-gamma").style.width = "0%";
+		document.getElementById("progress-bar-delta").style.width = "0%";
+
+		function stop_loading() 
+		{
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("myDiv").style.display = "block";
+		}
+
+		function animate(old_, id, new_)
+		{
+			if (new_ - old_ == 0)
+			{
+				return 0;
+			}
+			else if (old_ > new_)
+			{
+				document.getElementById(id).style.width = String(old_ - 1) + "%";
+				animate(old_ - 1, id, new_);
+			}
+			else if (old_ < new_)
+			{
+				document.getElementById(id).style.width = String(old_ + 1) + "%";
+				animate(old_ + 1, id, new_);
+			}
+		}
+
 		//Pusher #1 --> Anirudhasaraf123t
 		var pusher1 = new Pusher("c524437e1b5b7c5b2f78", {cluster: 'ap1', forceTLS: true});
 		var channel1 = pusher1.subscribe('games_day');
 		channel1.bind('main', function(data) 
 		{
+
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+			document.getElementById("progress-text-alpha").innerHTML = data.Alpha;
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+			document.getElementById("progress-text-beta").innerHTML = data.Beta;
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+			document.getElementById("progress-text-gamma").innerHTML = data.Gamma;
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
+			document.getElementById("progress-text-delta").innerHTML = data.Delta;
 		});
 
 		//Pusher #2 --> TJCGamesDay
@@ -27,10 +270,48 @@
 		channel2.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});
 
 		//Pusher #3 --> TJCGamesDay2
@@ -39,10 +320,48 @@
 		channel3.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});
 
 		//Pusher #4 --> TJCGamesDay3
@@ -51,10 +370,48 @@
 		channel4.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});
 
 		//Pusher #5 --> TJCGamesDay4
@@ -63,10 +420,48 @@
 		channel5.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});
 
 		//Pusher #6 --> TJCGamesDay5 
@@ -75,22 +470,97 @@
 		channel6.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
-		});
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
 
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
+		});
 		//Pusher #7 --> TJCGamesDay6
 		var pusher7 = new Pusher("a3edf1a5f488e9a9d6e2", {cluster: 'ap1', forceTLS: true});
 		var channel7 = pusher7.subscribe('games_day');
 		channel7.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});
 
 		//Pusher #8 --> TJCGamesDay7
@@ -99,10 +569,48 @@
 		channel8.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});
 
 		//Pusher #9 --> TJCGamesDay8
@@ -111,10 +619,48 @@
 		channel9.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});
 
 		//Pusher #10 --> TJCGamesDay9
@@ -123,10 +669,48 @@
 		channel10.bind('main', function(data) 
 		{
 			var json = data;
-			document.getElementById("alpha").innerHTML = data.Alpha;
-			document.getElementById("beta").innerHTML = data.Beta;
-			document.getElementById("gamma").innerHTML = data.Gamma;
-			document.getElementById("delta").innerHTML = data.Delta;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-alpha").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Alpha / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-alpha", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-beta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Beta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-beta", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-gamma").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Gamma / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-gamma", percent);
+
+			var json = data;
+			stop_loading();
+			current_width = document.getElementById("progress-bar-delta").offsetWidth;
+			current_percentage = (current_width / 800) * 100;
+			current_percentage = Math.round(current_percentage, 1);
+			console.log(current_percentage);
+			percent = (data.Delta / data.Greatest) * 100;
+			percent = Math.round(percent, 1);
+			console.log(percent);
+			animate(current_percentage, "progress-bar-delta", percent);
 		});        
 	</script>
 </body>
