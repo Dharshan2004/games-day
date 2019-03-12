@@ -114,10 +114,16 @@ def get_client():
 	pusher_client = pusher_clients[Id]
 	return [pusher_client, Id]
 
-
+def get_external_scores():
+	alpha = database.child("Alpha").get().val()
+	beta = database.child("Beta").get().val()
+	gamma = database.child("Gamma").get().val()
+	delta = database.child("Delta").get().val()
+	return [alpha, beta, gamma, delta]
 def main(pusher_client):
+	external_scores = get_external_scores()
 	sheet = sheets.get(url)
-	scores = {'Alpha': 0, 'Beta': 0, 'Gamma': 0, 'Delta': 0} 
+	scores = {'Alpha': external_scores[0], 'Beta': external_scores[1], 'Gamma': external_scores[2], 'Delta': external_scores[3]} 
 	for class_index in range(0, 74): #!! REMEMBER: Change range when JC Classes are ready in the google sheets
 		student_index = 3
 		if class_index == 47:
@@ -156,9 +162,9 @@ def run():
 	except:
 		error()
 
-
 while True:
-	run()
+
+	main(get_client())
 
 
 
