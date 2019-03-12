@@ -1,0 +1,11 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+install:
+  - echo hi
+
+script:
+  python3 run.py
