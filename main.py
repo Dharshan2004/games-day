@@ -118,12 +118,14 @@ def get_client():
 def main(pusher_client):
 	sheet = sheets.get(url)
 	scores = {'Alpha': 0, 'Beta': 0, 'Gamma': 0, 'Delta': 0} 
-	for class_index in range(0, 22): #!! REMEMBER: Change range when JC Classes are ready in the google sheets
-		student_index = 3 
+	for class_index in range(0, 74): #!! REMEMBER: Change range when JC Classes are ready in the google sheets
+		student_index = 3
+		if class_index == 47:
+			continue
 		while True:
 			student_list = sheet.sheets[class_index][str(student_index)]
 			try:
-				if student_list[0] == '':
+				if student_list[1] == '':
 					break
 			except:
 				break
@@ -133,7 +135,7 @@ def main(pusher_client):
 			elif house == 'B':
 				house = 'Beta'
 			elif house == 'G':
-				house == 'Gamma'
+				house = 'Gamma'
 			elif house == 'D':
 				house = 'Delta'
 			scores[house] = scores[house] + student_list[25]
