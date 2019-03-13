@@ -126,10 +126,10 @@ def main(pusher_client):
 	scores = {'Alpha': external_scores[0], 'Beta': external_scores[1], 'Gamma': external_scores[2], 'Delta': external_scores[3]} 
 	for class_index in range(0, 74): #!! REMEMBER: Change range when JC Classes are ready in the google sheets
 		student_index = 3
-		if class_index == 47:
-			continue
 		while True:
 			student_list = sheet.sheets[class_index][str(student_index)]
+			if student_list[1] == "ANTHEA CHEO":
+				break
 			try:
 				if student_list[1] == '':
 					break
@@ -164,7 +164,7 @@ def run():
 
 while True:
 
-	main(get_client())
+	run()
 
 
 
