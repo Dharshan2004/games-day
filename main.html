@@ -35,10 +35,25 @@
 
 		@font-face 
 		{
-			src: url("fonts/Gotham Bold.ttf");
-			font-family: 'Gotham';
-			font-weight: bold;
+			font-family: 'Gotham Bold';
+			src: url('font/Gotham Bold.eot');
+			src: url('font/Gotham Bold.eot?#iefix') format('embedded-opentype'),
+			url('font/Gotham Bold.woff2') format('woff2');
+			font-weight: normal;
+			font-style: normal;
 		}
+
+		@font-face 
+		{
+			font-family: 'Gotham-Bold';
+			src: url('font/Gotham-Bold.svg#Gotham-Bold') format('svg'),
+			url('font/Gotham-Bold.ttf') format('truetype'),
+			url('font/Gotham-Bold.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+
 		body
 		{ 
 			margin:0 auto; 
@@ -67,7 +82,7 @@
 			vertical-align: middle;
 			line-height: 350px;
 			font-size: 200px;
-			font-family:Gotham;
+			font-family:Gotham-bold;
 			background-color: #5FC7FF;
 			opacity: 0.85;
 			color: white;
@@ -104,7 +119,7 @@
 			vertical-align: middle;
 			line-height: 350px;
 			font-size: 200px;
-			font-family:Gotham;
+			font-family:Gotham-bold;
 			background-color: #F1433F;
 			opacity: 0.85;
 			color: white;
@@ -141,7 +156,7 @@
 			vertical-align: middle;
 			line-height: 350px;
 			font-size: 200px;
-			font-family:Gotham;
+			font-family:Gotham-bold;
 			background-color: #F7E967;
 			opacity: 0.92;
 			color: white;
@@ -179,7 +194,7 @@
 			vertical-align: middle;
 			line-height: 350px;
 			font-size: 200px;
-			font-family:Gotham;
+			font-family:Gotham-bold;
 			background-color: #A9CF54;
 			opacity: 0.85;
 			color: white;
@@ -207,7 +222,7 @@
 	</style>
 </head>
 <body>
-	<div id="loader"></div>
+	<div id="loader"></div>.
 	<div style="display:none;" id="page-wrap">
 		<div id = "main">
 			<div id = "alpha">
@@ -269,7 +284,7 @@
 				{
 					while(true)
 					{
-						await sleep(2);
+						await sleep(5);
 						alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 						beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 						gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -296,7 +311,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -322,7 +337,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -348,7 +363,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -374,7 +389,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -400,7 +415,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -426,7 +441,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -452,7 +467,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -478,7 +493,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
@@ -504,7 +519,7 @@
 				stop_loading();
 				while(true)
 				{
-					await sleep(2);
+					await sleep(5);
 					alpha_old = parseInt(document.getElementById("alpha_text").innerHTML);
 					beta_old = parseInt(document.getElementById("beta_text").innerHTML);
 					gamma_old = parseInt(document.getElementById("gamma_text").innerHTML);
